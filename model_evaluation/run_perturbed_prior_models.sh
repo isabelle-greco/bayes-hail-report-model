@@ -1,0 +1,177 @@
+#! /bin/bash
+
+### Script to run the perturbed prior experimends
+###
+### Last modified: 2023-09-01
+### Author: Isabelle Greco
+
+# Parameters for the PBS job
+#PBS -l ncpus=1
+#PBS -l mem=1GB
+#PBS -l jobfs=3GB
+#PBS -q normal
+#PBS -P w42
+#PBS -l walltime=00:10:00
+#PBS -l storage=gdata/w42+gdata/dk92+scratch/w42
+#PBS -l wd
+
+## sqrt mesh x log pop_dens models ##
+
+# wider priors 
+echo "hail_std_sqrt_mesh_report_std_dens_wide"
+qsub -v MODEL_NAME=hail_std_sqrt_mesh_report_std_dens_wide -N hail_std_sqrt_mesh_report_std_dens_wide run_and_evaluate_model_parallel.sh
+
+# narrower priors
+echo "hail_std_sqrt_mesh_report_std_dens_narrow"
+qsub -v MODEL_NAME=hail_std_sqrt_mesh_report_std_dens_narrow -N hail_std_sqrt_mesh_report_std_dens_narrow run_and_evaluate_model_parallel.sh
+
+# positive translation
+echo "hail_std_sqrt_mesh_report_std_dens_positive"
+qsub -v MODEL_NAME=hail_std_sqrt_mesh_report_std_dens_positive -N hail_std_sqrt_mesh_report_std_dens_positive run_and_evaluate_model_parallel.sh
+
+# negative translation
+echo "hail_std_sqrt_mesh_report_std_dens_negative"
+qsub -v MODEL_NAME=hail_std_sqrt_mesh_report_std_dens_negative -N hail_std_sqrt_mesh_report_std_dens_negative run_and_evaluate_model_parallel.sh
+
+# gamma priors
+echo "hail_std_sqrt_mesh_report_std_dens_gamma"
+qsub -v MODEL_NAME=hail_std_sqrt_mesh_report_std_dens_gamma -N hail_std_sqrt_mesh_report_std_dens_gamma run_and_evaluate_model_parallel.sh
+
+# lognormal priors
+echo "hail_std_sqrt_mesh_report_std_dens_lognormal"
+qsub -v MODEL_NAME=hail_std_sqrt_mesh_report_std_dens_lognormal -N hail_std_sqrt_mesh_report_std_dens_lognormal run_and_evaluate_model_parallel.sh
+
+# filter number of hail events
+echo "hail_std_sqrt_mesh_report_std_dens_filter_numevents"
+qsub -v MODEL_NAME=hail_std_sqrt_mesh_report_std_dens_filter_numevents -N hail_std_sqrt_mesh_report_std_dens_gamma_filter_numevents run_and_evaluate_model_parallel.sh
+
+# filter prob hail
+echo "hail_std_sqrt_mesh_report_std_dens_filter_probhail"
+qsub -v MODEL_NAME=hail_std_sqrt_mesh_report_std_dens_filter_probhail -N hail_std_sqrt_mesh_report_std_dens_gamma_filter_probhail run_and_evaluate_model_parallel.sh
+
+# filter number of hail events and prob hail
+echo "hail_std_sqrt_mesh_report_std_dens_filter_numevents_probhail"
+qsub -v MODEL_NAME=hail_std_sqrt_mesh_report_std_dens_filter_numevents_probhail -N hail_std_sqrt_mesh_report_std_dens_gamma_filter_numevents_probhail run_and_evaluate_model_parallel.sh
+
+## trans mesh x trans pop dens ## 
+
+# wider priors 
+echo "hail_trans_std_mesh_report_trans_std_dens_wide"
+qsub -v MODEL_NAME=hail_trans_std_mesh_report_trans_std_dens_wide -N hail_trans_std_mesh_report_trans_std_dens_wide run_and_evaluate_model_parallel.sh
+
+# narrow priors 
+echo "hail_trans_std_mesh_report_trans_std_dens_narrow"
+qsub -v MODEL_NAME=hail_trans_std_mesh_report_trans_std_dens_narrow -N hail_trans_std_mesh_report_trans_std_dens_narrow run_and_evaluate_model_parallel.sh
+
+# positive translation 
+echo "hail_trans_std_mesh_report_trans_std_dens_positive"
+qsub -v MODEL_NAME=hail_trans_std_mesh_report_trans_std_dens_positive -N hail_trans_std_mesh_report_trans_std_dens_positive run_and_evaluate_model_parallel.sh
+
+# negative translation 
+echo "hail_trans_std_mesh_report_trans_std_dens_negative"
+qsub -v MODEL_NAME=hail_trans_std_mesh_report_trans_std_dens_negative -N hail_trans_std_mesh_report_trans_std_dens_negative run_and_evaluate_model_parallel.sh
+
+# gamma priors 
+echo "hail_trans_std_mesh_report_trans_std_dens_gamma"
+qsub -v MODEL_NAME=hail_trans_std_mesh_report_trans_std_dens_gamma -N hail_trans_std_mesh_report_trans_std_dens_gamma run_and_evaluate_model_parallel.sh
+
+# lognormal priors 
+echo "hail_trans_std_mesh_report_trans_std_dens_lognormal"
+qsub -v MODEL_NAME=hail_trans_std_mesh_report_trans_std_dens_lognormal -N hail_trans_std_mesh_report_trans_std_dens_lognormal run_and_evaluate_model_parallel.sh
+
+# filter number of hail events 
+echo "hail_trans_std_mesh_report_trans_std_dens_filter_numevents"
+qsub -v MODEL_NAME=hail_trans_std_mesh_report_trans_std_dens_filter_numevents -N hail_trans_std_mesh_report_trans_std_dens_filter_numevents run_and_evaluate_model_parallel.sh
+
+# filter probability of hail
+echo "hail_trans_std_mesh_report_trans_std_dens_filter_probhail"
+qsub -v MODEL_NAME=hail_trans_std_mesh_report_trans_std_dens_filter_probhail -N hail_trans_std_mesh_report_trans_std_dens_filter_probhail run_and_evaluate_model_parallel.sh
+
+# filter number of events and  probability of hail
+echo "hail_trans_std_mesh_report_trans_std_dens_filter_numevents_probhail"
+qsub -v MODEL_NAME=hail_trans_std_mesh_report_trans_std_dens_filter_numevents_probhail -N hail_trans_std_mesh_report_trans_std_dens_filter_numevents_probhail run_and_evaluate_model_parallel.sh
+
+## trans mesh x trans pop dens with wide priors ##
+
+# only changing yj prior
+echo "hail_trans_std_mesh_report_trans_std_dens_yjwide"
+qsub -v MODEL_NAME=hail_trans_std_mesh_report_trans_std_dens_yjwide -N hail_trans_std_mesh_report_trans_std_dens_yjwide run_and_evaluate_model_parallel.sh
+
+# wider priors 
+echo "hail_trans_std_mesh_report_trans_std_dens_yjwide_wide"
+qsub -v MODEL_NAME=hail_trans_std_mesh_report_trans_std_dens_yjwide_wide -N hail_trans_std_mesh_report_trans_std_dens_yjwide_wide run_and_evaluate_model_parallel.sh
+
+# narrow priors 
+echo "hail_trans_std_mesh_report_trans_std_dens_yjwide_narrow"
+qsub -v MODEL_NAME=hail_trans_std_mesh_report_trans_std_dens_yjwide_narrow -N hail_trans_std_mesh_report_trans_std_dens_yjwide_narrow run_and_evaluate_model_parallel.sh
+
+# positive translation
+echo "hail_trans_std_mesh_report_trans_std_dens_yjwide_positive"
+qsub -v MODEL_NAME=hail_trans_std_mesh_report_trans_std_dens_yjwide_positive -N hail_trans_std_mesh_report_trans_std_dens_yjwide_positive run_and_evaluate_model_parallel.sh
+
+# negative translation
+echo "hail_trans_std_mesh_report_trans_std_dens_yjwide_negative"
+qsub -v MODEL_NAME=hail_trans_std_mesh_report_trans_std_dens_yjwide_negative -N hail_trans_std_mesh_report_trans_std_dens_yjwide_negative run_and_evaluate_model_parallel.sh
+
+# gamma prior
+echo "hail_trans_std_mesh_report_trans_std_dens_yjwide_gamma"
+qsub -v MODEL_NAME=hail_trans_std_mesh_report_trans_std_dens_yjwide_gamma -N hail_trans_std_mesh_report_trans_std_dens_yjwide_gamma run_and_evaluate_model_parallel.sh
+
+# lognormal prior
+echo "hail_trans_std_mesh_report_trans_std_dens_yjwide_lognormal"
+qsub -v MODEL_NAME=hail_trans_std_mesh_report_trans_std_dens_yjwide_lognormal -N hail_trans_std_mesh_report_trans_std_dens_yjwide_lognormal run_and_evaluate_model_parallel.sh
+
+# filter number of hail evens
+echo "hail_trans_std_mesh_report_trans_std_dens_yjwide_filter_numevents"
+qsub -v MODEL_NAME=hail_trans_std_mesh_report_trans_std_dens_yjwide_filter_numevents -N hail_trans_std_mesh_report_trans_std_dens_yjwide_filter_numevents run_and_evaluate_model_parallel.sh
+
+# filter probability of hail
+echo "hail_trans_std_mesh_report_trans_std_dens_yjwide_filter_probhail"
+qsub -v MODEL_NAME=hail_trans_std_mesh_report_trans_std_dens_yjwide_filter_probhail -N hail_trans_std_mesh_report_trans_std_dens_yjwide_filter_probhail run_and_evaluate_model_parallel.sh
+
+# filter number of events and probability of hail
+echo "hail_trans_std_mesh_report_trans_std_dens_yjwide_filter_numevents_probhail"
+qsub -v MODEL_NAME=hail_trans_std_mesh_report_trans_std_dens_yjwide_filter_numevents_probhail -N hail_trans_std_mesh_report_trans_std_dens_yjwide_filter_numevents_probhail run_and_evaluate_model_parallel.sh
+
+## trans mesh x trans pop dens with narrow priors ##
+
+# only changing yj prior
+echo "hail_trans_std_mesh_report_trans_std_dens_yjnarrow"
+qsub -v MODEL_NAME=hail_trans_std_mesh_report_trans_std_dens_yjnarrow -N hail_trans_std_mesh_report_trans_std_dens_yjnarrow run_and_evaluate_model_parallel.sh
+
+# wider priors 
+echo "hail_trans_std_mesh_report_trans_std_dens_yjnarrow_wide"
+qsub -v MODEL_NAME=hail_trans_std_mesh_report_trans_std_dens_yjnarrow_wide -N hail_trans_std_mesh_report_trans_std_dens_yjnarrow_wide run_and_evaluate_model_parallel.sh
+
+# narrow priors 
+echo "hail_trans_std_mesh_report_trans_std_dens_yjnarrow_narrow"
+qsub -v MODEL_NAME=hail_trans_std_mesh_report_trans_std_dens_yjnarrow_narrow -N hail_trans_std_mesh_report_trans_std_dens_yjnarrow_narrow run_and_evaluate_model_parallel.sh
+
+# positive translation
+echo "hail_trans_std_mesh_report_trans_std_dens_yjnarrow_positive"
+qsub -v MODEL_NAME=hail_trans_std_mesh_report_trans_std_dens_yjnarrow_positive -N hail_trans_std_mesh_report_trans_std_dens_yjnarrow_positive run_and_evaluate_model_parallel.sh
+
+# negative translation
+echo "hail_trans_std_mesh_report_trans_std_dens_yjnarrow_negative"
+qsub -v MODEL_NAME=hail_trans_std_mesh_report_trans_std_dens_yjnarrow_negative -N hail_trans_std_mesh_report_trans_std_dens_yjnarrow_negative run_and_evaluate_model_parallel.sh
+
+# gamma prior
+echo "hail_trans_std_mesh_report_trans_std_dens_yjnarrow_gamma"
+qsub -v MODEL_NAME=hail_trans_std_mesh_report_trans_std_dens_yjnarrow_gamma -N hail_trans_std_mesh_report_trans_std_dens_yjnarrow_gamma run_and_evaluate_model_parallel.sh
+
+# lognormal prior
+echo "hail_trans_std_mesh_report_trans_std_dens_yjnarrow_lognormal"
+qsub -v MODEL_NAME=hail_trans_std_mesh_report_trans_std_dens_yjnarrow_lognormal -N hail_trans_std_mesh_report_trans_std_dens_yjnarrow_lognormal run_and_evaluate_model_parallel.sh
+
+# filter number of hail evens
+echo "hail_trans_std_mesh_report_trans_std_dens_yjnarrow_filter_numevents"
+qsub -v MODEL_NAME=hail_trans_std_mesh_report_trans_std_dens_yjnarrow_filter_numevents -N hail_trans_std_mesh_report_trans_std_dens_yjnarrow_filter_numevents run_and_evaluate_model_parallel.sh
+
+# filter probability of hail
+echo "hail_trans_std_mesh_report_trans_std_dens_yjnarrow_filter_probhail"
+qsub -v MODEL_NAME=hail_trans_std_mesh_report_trans_std_dens_yjnarrow_filter_probhail -N hail_trans_std_mesh_report_trans_std_dens_yjnarrow_filter_probhail run_and_evaluate_model_parallel.sh
+
+# filter number of events and probability of hail
+echo "hail_trans_std_mesh_report_trans_std_dens_yjnarrow_filter_numevents_probhail"
+qsub -v MODEL_NAME=hail_trans_std_mesh_report_trans_std_dens_yjnarrow_filter_numevents_probhail -N hail_trans_std_mesh_report_trans_std_dens_yjnarrow_filter_numevents_probhail run_and_evaluate_model_parallel.sh
+

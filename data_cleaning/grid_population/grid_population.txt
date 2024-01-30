@@ -1,0 +1,61 @@
+### Currently Gadi cannot be used to run `qgis_process` which was used to (locally)
+### transform the population density data.
+### This file serves as a record of the steps that were taken and the commands
+### that could be executed where it possible.
+###
+### Data were downloaded from the ABS website for Regional Population
+### (abs.gov.au/statistics/people/population/regional-population/latest-release#data-downloads)
+###
+### Last modified: 2023-02-14
+### Author: Isabelle Greco
+
+# variable - data directoriess
+DATA_DIR="/g/data/$PROJECT/$USER/bayesian_paper_data"
+DOWNLOAD_DIR="$DATA_DIR/downloaded_data"
+INTERMEDIATE_DIR="$DATA_DIR/intermediate_data"
+
+# variables - file names
+NEW_CRS_FILE="$INTERMEDIATE_DIR/population_density_new_crs.tif"
+ZERO_FILE="$INTERMEDIATE_DIR/population_density_zero.tif"
+FINAL_FILE="$INTERMEDIATE_DIR/population_density_coarse_grid.tif"
+
+# if available, qgis_process would be loaded here
+
+# changing coordinate reference system (crs) from the Australian Albers grid
+# (EPSG:3577) to the latitude-longitude grid (IGNF:WGS844GDD)
+qgis_process run gdal:warpreproject --distance_units=meters \
+	--area_units=m2 \
+	--ellipsoid=EPSG:7019 \
+	--INPUT='$DOWNLOAD_DIR/ESRI_GRID_2016/apg16r_1_0_0/hdr.adf' \
+	--SOURCE_CRS='EPSG:3577' \
+	--TARGET_CRS='IGNF:WGS84GDD' \
+	--RESAMPLING=0 \
+	--OPTIONS= --DATA_TYPE=0 --MULTITHREADING=false --EXTRA= --OUTPUT='$NEW_CRS_FILE'
+
+# changing no data value to zero to perpare for averaging
+qgis_process run gdal:warpreproject --distance_units=meters \
+	--area_units=m2 \
+	--ellipsoid=EPSG:7019 \
+	--INPUT='$NEW_CRS_FILE' \
+	--RESAMPLING=0 \
+	--NODATA=0 \
+	--OPTIONS= --DATA_TYPE=0 --MULTITHREADING=false --EXTRA= --OUTPUT='$ZERO_FILE'
+
+# we then take the average in each 0.25 degree grid cell to coarsen the grid
+# and align it with the grid in the radar data
+qgis_process run gdal:warpreproject --distance_units=meters \
+	--area_units=m2 \
+	--ellipsoid=EPSG:7030 \
+	--INPUT='$ZERO_FILE' \
+	--SOURCE_CRS='IGNF:WGS84GDD' \
+	--TARGET_CRS='IGNF:WGS84GDD' \
+	--RESAMPLING=5 \
+	--NODATA=0 \
+	--TARGET_RESOLUTION=0.25 \
+	--OPTIONS= --DATA_TYPE=0 \
+		--TARGET_EXTENT='100.000000000,170.000000000,-50.000000000,0.000000000 [IGNF:WGS84GDD]' \
+		--TARGET_EXTENT_CRS='IGNF:WGS84GDD' \
+		--MULTITHREADING=false \
+	--EXTRA= --OUTPUT='$FINAL_FILE'
+
+
