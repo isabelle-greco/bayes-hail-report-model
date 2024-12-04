@@ -1,4 +1,4 @@
-cff-version: 1.1.0
+cff-version: 1.0.0
 message: "If you use this software, please cite it as below."
 authors:
 - family-names: "Greco"
@@ -12,5 +12,6 @@ authors:
   given-names: "Gab"
 title: "bayes-hail-report-model"
 version: 1.0.0
+licence: GPL-3.0-or-later
 date-released: 2024-12-04
 url: "https://github.com/isabelle-greco/bayes-hail-report-model"
