@@ -2,7 +2,7 @@
 
 Data and analysis scripts used for the publication:
 
-Greco, I. C., Sherwood, S. C., Raupach, T. H., & Abramowitz G. (submitted 2024). *A Bayesian framework for the probabilistic interpretation of radar observations and severe hailstorm reports*. Weather & Forecasting.
+Greco, I. C., Sherwood, S. C., Raupach, T. H., & Abramowitz G. 2024. *A Bayesian framework for the probabilistic interpretation of radar observations and severe hailstorm reports*. Weather & Forecasting (in press).
 
 ## Navigating this repository
 
