@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.14275035.svg)](https://doi.org/10.5281/zenodo.14275035)
+
 # bayes-hail-report-model
 
 Data and analysis scripts used for the publication:
